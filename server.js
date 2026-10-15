@@ -223,6 +223,22 @@ function tokenHash(token) {
   return crypto.createHash("sha256").update(token).digest("hex");
 }
 
+function ensureAdminAccount() {
+  if (!adminEmail) return;
+  const existing = database.prepare("SELECT id FROM users WHERE email = ?").get(adminEmail);
+  if (existing) {
+    database.prepare("UPDATE users SET role = 'admin' WHERE id = ?").run(existing.id);
+    return;
+  }
+  const temporaryPassword = crypto.randomBytes(32).toString("hex");
+  const hashed = passwordHash(temporaryPassword);
+  database.prepare(
+    "INSERT INTO users (name, email, password_hash, password_salt, role) VALUES (?, ?, ?, ?, 'admin')"
+  ).run("RK ENTERPRISES Admin", adminEmail, hashed.hash, hashed.salt);
+}
+
+ensureAdminAccount();
+
 async function sendPasswordResetEmail(email, rawToken) {
   if (!smtpTransport) throw new Error("SMTP email delivery is not configured.");
   const resetUrl = `${appUrl}/reset-password.html?token=${encodeURIComponent(rawToken)}`;
