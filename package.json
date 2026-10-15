@@ -1,0 +1,12 @@
+{
+  "name": "computer-hub-store",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Computer Hub ecommerce storefront",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "nodemailer": "^10.1.1"
+  }
+}

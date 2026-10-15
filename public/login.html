@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in — RK ENTERPRISES</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="auth-page">
+    <video class="auth-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261005_182346_a590ff3b-72e5-41ce-8f69-a8c823eaecaa.mp4" type="video/mp4" />
+    </video>
+    <div class="auth-shade auth-shade-x"></div><div class="auth-shade auth-shade-y"></div>
+    <main class="auth-layout">
+      <section class="auth-brand-panel">
+        <a class="brand auth-brand" href="/"><span class="brand-mark">RK</span><span>RK <span>ENTERPRISES</span></span></a>
+        <div class="auth-promise"><p class="eyebrow">Your setup, all in one place</p><h1>Power up.<br /><em>Sign in.</em></h1><p>Track your orders, save your favorite gear, and get a faster checkout every time.</p></div>
+      </section>
+      <section class="auth-form-panel">
+        <div class="auth-form-wrap">
+          <a class="back-link" href="/">← Back to shop</a>
+          <div class="auth-tabs"><button class="auth-tab active" data-mode="login">Sign in</button><button class="auth-tab" data-mode="register">Create account</button></div>
+          <p class="eyebrow" id="authEyebrow">Welcome back</p>
+          <h2 id="authTitle">Sign in to your account</h2>
+          <p class="auth-subtitle" id="authSubtitle">Enter your details to continue shopping.</p>
+          <form id="authForm">
+            <label id="nameField" hidden>Full name<input name="name" autocomplete="name" placeholder="Alex Morgan" /></label>
+            <label>Email address<input name="email" type="email" autocomplete="email" required placeholder="you@example.com" /></label>
+            <label>Password<input name="password" type="password" autocomplete="current-password" required minlength="8" placeholder="At least 8 characters" /></label>
+            <div class="auth-options"><label class="checkbox-label"><input type="checkbox" /> Remember me</label><a href="#" id="forgotLink">Forgot password?</a></div>
+            <p class="auth-error" id="authError" role="alert"></p>
+            <button class="button button-primary auth-submit" type="submit" id="authSubmit">Sign in <span>→</span></button>
+          </form>
+          <p class="auth-switch" id="authSwitch">New to RK ENTERPRISES? <button data-mode="register">Create an account</button></p>
+          <p class="auth-note">By continuing, you agree to our Terms and Privacy Policy.</p>
+        </div>
+      </section>
+    </main>
+    <script src="/auth.js?v=2"></script>
+  </body>
+</html>

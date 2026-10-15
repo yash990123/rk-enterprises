@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#03080B" />
+    <title>Admin panel — RK ENTERPRISES</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="dashboard-page admin-page">
+    <video class="dashboard-video" autoplay muted loop playsinline preload="auto" aria-hidden="true"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261005_182346_a590ff3b-72e5-41ce-8f69-a8c823eaecaa.mp4" type="video/mp4" /></video>
+    <div class="dashboard-shade dashboard-shade-x"></div><div class="dashboard-shade dashboard-shade-y"></div>
+    <header class="site-header">
+      <a class="brand dashboard-brand" href="/" aria-label="RK ENTERPRISES home"><span class="brand-mark">RK</span><span>RK <span>ENTERPRISES</span></span></a>
+      <nav class="main-nav"><a href="/dashboard.html">My account</a><a href="/">Shop</a></nav>
+      <button class="dashboard-logout" id="adminLogout">Log out <span>↗</span></button>
+    </header>
+    <main class="dashboard-main admin-main">
+      <div class="dashboard-heading"><div><p class="eyebrow">RK ENTERPRISES operations</p><h1>Admin panel</h1><p>Monitor customers, orders, revenue, and delivery status.</p></div><span class="account-status">Admin access</span></div>
+      <p class="dashboard-message" id="adminMessage" role="alert"></p>
+      <section class="admin-metrics" id="adminMetrics"></section>
+      <section class="dashboard-card admin-card">
+        <div class="admin-toolbar"><div><p class="eyebrow">Customer accounts</p><h2>Users</h2></div><input id="userSearch" type="search" placeholder="Search users..." /></div>
+        <div class="admin-table-wrap"><table><thead><tr><th>Customer</th><th>Contact</th><th>Joined</th><th>Orders</th><th>Spent</th><th>Role</th><th>Password</th></tr></thead><tbody id="usersTable"></tbody></table></div>
+      </section>
+      <section class="dashboard-card admin-card">
+        <div class="admin-toolbar"><div><p class="eyebrow">Store activity</p><h2>Orders received</h2></div><select id="orderFilter"><option value="">All statuses</option><option>Processing</option><option>Packed</option><option>Shipped</option><option>Out for delivery</option><option>Delivered</option></select></div>
+        <div class="admin-table-wrap"><table><thead><tr><th>Order</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th><th>Update</th></tr></thead><tbody id="ordersTable"></tbody></table></div>
+      </section>
+    </main>
+    <script src="/admin.js?v=1"></script>
+  </body>
+</html>

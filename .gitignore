@@ -1,0 +1,5 @@
+computer-hub.db
+computer-hub.db-shm
+computer-hub.db-wal
+.env
+node_modules

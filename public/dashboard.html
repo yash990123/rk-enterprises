@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#03080B" />
+    <title>Account — RK ENTERPRISES</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="dashboard-page">
+    <video class="dashboard-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261005_182346_a590ff3b-72e5-41ce-8f69-a8c823eaecaa.mp4" type="video/mp4" />
+    </video>
+    <div class="dashboard-shade dashboard-shade-x"></div><div class="dashboard-shade dashboard-shade-y"></div>
+    <header class="site-header">
+      <a class="brand dashboard-brand" href="/" aria-label="RK ENTERPRISES home"><span class="brand-mark">RK</span><span>RK <span>ENTERPRISES</span></span></a>
+      <nav class="main-nav"><a href="/">Shop</a><a href="/#why-us">Why RK ENTERPRISES</a><a href="/#support">Support</a><a class="admin-nav-link" id="adminNavLink" href="/admin.html" hidden>Admin panel</a></nav>
+      <button class="dashboard-logout" id="logoutButton">Log out <span>↗</span></button>
+    </header>
+    <main class="dashboard-main">
+      <div class="dashboard-heading"><div><p class="eyebrow">Your RK ENTERPRISES</p><h1>Account dashboard</h1><p>Manage your profile, orders, preferences, and account information.</p></div><a class="button button-primary" href="/#shop">Continue shopping <span>→</span></a></div>
+      <p class="dashboard-message" id="dashboardMessage" role="alert"></p>
+      <section class="dashboard-card account-overview">
+        <div class="card-heading"><div><p class="eyebrow">Your account</p><h2>Account information</h2></div><span class="account-status">Secure account</span></div>
+        <div class="account-shortcuts">
+          <a class="account-shortcut" href="#orders">
+            <span class="shortcut-icon">▣</span>
+            <span><strong>Your orders</strong><small>Track, return, or view purchases</small></span>
+            <span class="shortcut-arrow">→</span>
+          </a>
+          <a class="account-shortcut" href="#profile">
+            <span class="shortcut-icon">◎</span>
+            <span><strong>Login &amp; security</strong><small>Update your name and sign-in details</small></span>
+            <span class="shortcut-arrow">→</span>
+          </a>
+          <button class="account-shortcut" type="button" data-account-action="addresses">
+            <span class="shortcut-icon">⌂</span>
+            <span><strong>Your addresses</strong><small>Manage delivery and billing addresses</small></span>
+            <span class="shortcut-arrow">→</span>
+          </button>
+          <button class="account-shortcut" type="button" data-account-action="payments">
+            <span class="shortcut-icon">▤</span>
+            <span><strong>Payment options</strong><small>Manage cards and payment methods</small></span>
+            <span class="shortcut-arrow">→</span>
+          </button>
+          <button class="account-shortcut" type="button" data-account-action="preferences">
+            <span class="shortcut-icon">✉</span>
+            <span><strong>Communication preferences</strong><small>Choose updates and notifications</small></span>
+            <span class="shortcut-arrow">→</span>
+          </button>
+          <button class="account-shortcut" type="button" data-account-action="support">
+            <span class="shortcut-icon">?</span>
+            <span><strong>Customer support</strong><small>Get help with your RK ENTERPRISES account</small></span>
+            <span class="shortcut-arrow">→</span>
+          </button>
+          <a class="account-shortcut admin-account-link" id="adminAccountLink" href="/admin.html" hidden>
+            <span class="shortcut-icon">▦</span>
+            <span><strong>Admin panel</strong><small>Manage users, orders, and store activity</small></span>
+            <span class="shortcut-arrow">→</span>
+          </a>
+        </div>
+      </section>
+      <section class="dashboard-grid">
+        <div class="dashboard-card profile-card" id="profile">
+          <div class="card-heading"><div><p class="eyebrow">Profile</p><h2>Personal details</h2></div><span class="profile-avatar" id="profileAvatar">CH</span></div>
+          <form id="profileForm"><label>Full name<input id="profileName" name="name" required /></label><label>Email address<input id="profileEmail" name="email" type="email" readonly /></label><label>Phone number<input id="profilePhone" name="phone" type="tel" autocomplete="tel" placeholder="+1 (555) 123-4567" /></label><button class="button button-dark" type="submit">Save changes <span>→</span></button></form>
+        </div>
+        <div class="dashboard-card account-card"><p class="eyebrow">Account security</p><h2>Your account is protected</h2><p>Your password is securely encrypted and your session is protected with an HTTP-only cookie.</p><button class="dashboard-link security-action" type="button" data-account-action="security">Change sign-in details <span>→</span></button></div>
+      </section>
+      <section class="dashboard-card orders-card" id="orders"><div class="card-heading"><div><p class="eyebrow">Purchase history</p><h2>Your orders</h2></div><span class="order-count" id="orderCount">0 orders</span></div><div id="ordersList" class="orders-list"></div></section>
+    </main>
+    <div class="account-modal" id="accountModal" hidden>
+      <div class="account-modal-backdrop" data-close-account-modal></div>
+      <section class="account-modal-card" role="dialog" aria-modal="true" aria-labelledby="accountModalTitle">
+        <button class="account-modal-close" type="button" data-close-account-modal aria-label="Close">×</button>
+        <p class="eyebrow" id="accountModalEyebrow">Account</p><h2 id="accountModalTitle"></h2>
+        <div id="accountModalBody"></div>
+      </section>
+    </div>
+    <footer><a class="brand dashboard-brand" href="/" aria-label="RK ENTERPRISES home"><span class="brand-mark">RK</span><span>RK <span>ENTERPRISES</span></span></a><p>Better tech for better work and play.</p><small>© 2024 RK ENTERPRISES</small></footer>
+    <script src="/dashboard.js?v=2"></script>
+  </body>
+</html>
