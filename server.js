@@ -230,8 +230,8 @@ function ensureAdminAccount() {
     database.prepare("UPDATE users SET role = 'admin' WHERE id = ?").run(existing.id);
     return;
   }
-  const temporaryPassword = crypto.randomBytes(32).toString("hex");
-  const hashed = passwordHash(temporaryPassword);
+  const bootstrapPassword = String(process.env.ADMIN_PASSWORD || "");
+  const hashed = passwordHash(bootstrapPassword || crypto.randomBytes(32).toString("hex"));
   database.prepare(
     "INSERT INTO users (name, email, password_hash, password_salt, role) VALUES (?, ?, ?, ?, 'admin')"
   ).run("RK ENTERPRISES Admin", adminEmail, hashed.hash, hashed.salt);
