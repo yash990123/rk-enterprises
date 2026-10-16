@@ -11,6 +11,7 @@ const publicDir = path.join(__dirname, "public");
 const database = new DatabaseSync(path.join(__dirname, "computer-hub.db"));
 const adminEmail = String(process.env.ADMIN_EMAIL || "yash990123@gmail.com").trim().toLowerCase();
 const appUrl = String(process.env.APP_URL || `http://localhost:${port}`).replace(/\/$/, "");
+const accountMigrationSecret = String(process.env.ACCOUNT_MIGRATION_SECRET || "");
 const smtpTransport = process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS
   ? nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -306,6 +307,48 @@ function serveStatic(req, res) {
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
+  if (accountMigrationSecret && req.headers["x-account-migration-secret"] === accountMigrationSecret) {
+    if (req.method === "GET" && url.pathname === "/api/internal/export-users") {
+      const users = database.prepare(`
+        SELECT name, email, password_hash, password_salt, phone, role, created_at
+        FROM users
+        ORDER BY id
+      `).all();
+      return send(res, 200, { users });
+    }
+    if (req.method === "POST" && url.pathname === "/api/internal/import-users") {
+      return parseBody(req, (error, body) => {
+        if (error) return send(res, 400, { error: error.message });
+        const users = Array.isArray(body.users) ? body.users : [];
+        const insert = database.prepare(`
+          INSERT INTO users (name, email, password_hash, password_salt, phone, role, created_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?)
+          ON CONFLICT(email) DO UPDATE SET
+            name = excluded.name,
+            password_hash = excluded.password_hash,
+            password_salt = excluded.password_salt,
+            phone = excluded.phone,
+            role = CASE WHEN users.role = 'admin' THEN users.role ELSE excluded.role END
+        `);
+        const transaction = database.transaction(() => {
+          for (const user of users) {
+            if (!user || !user.email || !user.password_hash || !user.password_salt) continue;
+            insert.run(
+              String(user.name || "RK ENTERPRISES Customer"),
+              String(user.email).trim().toLowerCase(),
+              String(user.password_hash),
+              String(user.password_salt),
+              String(user.phone || ""),
+              user.role === "admin" ? "admin" : "customer",
+              String(user.created_at || new Date().toISOString())
+            );
+          }
+        });
+        transaction();
+        return send(res, 200, { ok: true, imported: users.length });
+      });
+    }
+  }
   if (req.method === "GET" && url.pathname === "/health") return send(res, 200, { ok: true, service: "rk-enterprises" });
   if (req.method === "GET" && url.pathname === "/api/products") return send(res, 200, products);
   if (req.method === "GET" && url.pathname === "/api/auth/me") return send(res, 200, { user: safeUser(currentUser(req)) });
