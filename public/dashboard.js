@@ -127,7 +127,7 @@ dashboard$("#profileForm").addEventListener("submit", async event => {
     dashboard$("#profileName").value = result.user.name;
     dashboard$("#profilePhone").value = result.user.phone || "";
     dashboard$("#profileAvatar").textContent = result.user.name.split(/\s+/).map(part => part[0]).join("").slice(0, 2).toUpperCase();
-    message.textContent = "Profile updated successfully.";
+    message.textContent = "Changes saved successfully.";
     message.className = "dashboard-message success";
   } catch (error) {
     message.textContent = error.message || "Could not save your profile. Please try again.";
