@@ -227,7 +227,15 @@ function ensureAdminAccount() {
   if (!adminEmail) return;
   const existing = database.prepare("SELECT id FROM users WHERE email = ?").get(adminEmail);
   if (existing) {
-    database.prepare("UPDATE users SET role = 'admin' WHERE id = ?").run(existing.id);
+    const bootstrapPassword = String(process.env.ADMIN_PASSWORD || "");
+    if (bootstrapPassword.length >= 8) {
+      const hashed = passwordHash(bootstrapPassword);
+      database.prepare(
+        "UPDATE users SET role = 'admin', password_hash = ?, password_salt = ? WHERE id = ?"
+      ).run(hashed.hash, hashed.salt, existing.id);
+    } else {
+      database.prepare("UPDATE users SET role = 'admin' WHERE id = ?").run(existing.id);
+    }
     return;
   }
   const bootstrapPassword = String(process.env.ADMIN_PASSWORD || "");
